@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Card from '../../components/ui/Card';
-import Image from 'next/image';
 
 // Dados simulados de destinos (mesmos da página de destinos)
 const todosDestinos = [

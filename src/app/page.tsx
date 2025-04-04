@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import Hero from '../components/Hero';
 import Card from '../components/ui/Card';
-import AnimatedCard from '../components/ui/AnimatedCard';
 
 export default function HomePage() {
   // Dados simulados para destinos populares

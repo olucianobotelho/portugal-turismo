@@ -273,19 +273,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-// Definição correta dos tipos para páginas do App Router no Next.js 15
-// Atualizando para atender requisitos do Next.js 15
+// Atualização do tipo PageProps para Next.js 15
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  // Remova searchParams da definição de tipo se não for usado
+  // searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function DestinoPage({ params, searchParams }: PageProps) {
-  // No Next.js App Router, quando acessamos propriedades de params, devemos realizar uma resolução da Promise primeiro
+export default async function DestinoPage({ params /* removendo searchParams */ }: PageProps) {
+  // Resolvendo a Promise dos parâmetros
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
-  
-  // Agora podemos usar a variável slug com segurança
   const destino = await getDestino(slug);
 
   if (!destino) {

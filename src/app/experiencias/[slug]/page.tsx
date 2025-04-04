@@ -193,10 +193,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 // Atualização do tipo PageProps para Next.js 15
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
+  // Remova searchParams da definição de tipo se não for usado
+  // searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-export default async function ExperienciaPage({ params, searchParams }: PageProps) {
+export default async function ExperienciaPage({ params /* removendo searchParams */ }: PageProps) {
   // Resolvendo a Promise dos parâmetros
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
