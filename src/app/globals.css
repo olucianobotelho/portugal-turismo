@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 245, 245, 245;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+}
+
+/* Cores personalizadas */
+:root {
+  --azul-maritimo: #1e3d59;
+  --cinza-pedra: #4a4a4a;
+  --preto-oliva: #2c3e50;
+}
+
+/* Classes de utilidade personalizadas */
+.text-azul-maritimo {
+  color: var(--azul-maritimo);
+}
+
+.text-cinza-pedra {
+  color: var(--cinza-pedra);
+}
+
+.text-preto-oliva {
+  color: var(--preto-oliva);
+}
+
+.bg-azul-maritimo {
+  background-color: var(--azul-maritimo);
+} 
