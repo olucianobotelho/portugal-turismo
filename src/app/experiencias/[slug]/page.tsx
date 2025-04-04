@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 // Dados simulados das experiências
 const experiencias = {
@@ -167,13 +168,36 @@ const experiencias = {
   }
 };
 
-type Props = {
+// Função para gerar metadata dinâmica
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const slug = params.slug;
+  const experiencia = experiencias[slug as keyof typeof experiencias];
+  
+  if (!experiencia) {
+    return {
+      title: 'Experiência não encontrada',
+      description: 'A experiência solicitada não foi encontrada',
+    };
+  }
+  
+  return {
+    title: `${experiencia.titulo} | Experiências em Portugal`,
+    description: experiencia.descricao,
+    openGraph: {
+      images: [experiencia.imagens[0]],
+    },
+  };
+}
+
+// Definição correta dos tipos para páginas do App Router no Next.js 15
+type PageProps = {
   params: {
     slug: string;
   };
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
-export default function ExperienciaPage({ params }: Props) {
+export default function ExperienciaPage({ params, searchParams }: PageProps) {
   const slug = params.slug;
   const experiencia = experiencias[slug as keyof typeof experiencias];
 

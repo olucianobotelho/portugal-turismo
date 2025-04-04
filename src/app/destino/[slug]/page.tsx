@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+// Importando os tipos corretos do Next.js
+import { Metadata } from 'next';
 // Removendo temporariamente a importação do motion
 // import { motion } from 'framer-motion';
 
@@ -249,13 +251,36 @@ async function getDestino(slug: string) {
   return destinos[slug as keyof typeof destinos] || null;
 }
 
-type Props = {
+// Função para gerar metadata dinâmica
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const slug = params.slug;
+  const destino = await getDestino(slug);
+  
+  if (!destino) {
+    return {
+      title: 'Destino não encontrado',
+      description: 'O destino solicitado não foi encontrado',
+    };
+  }
+  
+  return {
+    title: `${destino.nome} | Turismo Portugal`,
+    description: destino.descricao,
+    openGraph: {
+      images: [destino.imagens[0]],
+    },
+  };
+}
+
+// Definição correta dos tipos para páginas do App Router no Next.js 15
+type PageProps = {
   params: {
     slug: string;
   };
+  searchParams: Record<string, string | string[] | undefined>;
 };
 
-export default async function DestinoPage({ params }: Props) {
+export default async function DestinoPage({ params, searchParams }: PageProps) {
   // No Next.js App Router, quando acessamos propriedades de params, devemos realizar uma atribuição primeiro
   const slug = params.slug;
   

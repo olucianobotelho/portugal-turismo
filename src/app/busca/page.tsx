@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Card from '../../components/ui/Card';
+import Image from 'next/image';
 
 // Dados simulados de destinos (mesmos da página de destinos)
 const todosDestinos = [
@@ -92,7 +93,7 @@ const todosDestinos = [
 
 export default function BuscaPage() {
   const searchParams = useSearchParams();
-  const termoBusca = searchParams.get('q') || '';
+  const termoBusca = searchParams?.get('q') || '';
   
   // Estado para os resultados filtrados
   const [resultados, setResultados] = useState<typeof todosDestinos>([]);
