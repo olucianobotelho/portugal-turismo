@@ -252,8 +252,9 @@ async function getDestino(slug: string) {
 }
 
 // Função para gerar metadata dinâmica
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const slug = params.slug;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   const destino = await getDestino(slug);
   
   if (!destino) {
@@ -273,16 +274,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // Definição correta dos tipos para páginas do App Router no Next.js 15
+// Atualizando para atender requisitos do Next.js 15
 type PageProps = {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
   searchParams: Record<string, string | string[] | undefined>;
 };
 
 export default async function DestinoPage({ params, searchParams }: PageProps) {
-  // No Next.js App Router, quando acessamos propriedades de params, devemos realizar uma atribuição primeiro
-  const slug = params.slug;
+  // No Next.js App Router, quando acessamos propriedades de params, devemos realizar uma resolução da Promise primeiro
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   
   // Agora podemos usar a variável slug com segurança
   const destino = await getDestino(slug);

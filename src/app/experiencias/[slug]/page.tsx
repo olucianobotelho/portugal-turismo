@@ -169,8 +169,9 @@ const experiencias = {
 };
 
 // Função para gerar metadata dinâmica
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const slug = params.slug;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   const experiencia = experiencias[slug as keyof typeof experiencias];
   
   if (!experiencia) {
@@ -189,16 +190,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
-// Definição correta dos tipos para páginas do App Router no Next.js 15
+// Atualização do tipo PageProps para Next.js 15
 type PageProps = {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
   searchParams: Record<string, string | string[] | undefined>;
 };
 
-export default function ExperienciaPage({ params, searchParams }: PageProps) {
-  const slug = params.slug;
+export default async function ExperienciaPage({ params, searchParams }: PageProps) {
+  // Resolvendo a Promise dos parâmetros
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
   const experiencia = experiencias[slug as keyof typeof experiencias];
 
   if (!experiencia) {
