@@ -277,7 +277,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 // Atualizando para atender requisitos do Next.js 15
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function DestinoPage({ params, searchParams }: PageProps) {

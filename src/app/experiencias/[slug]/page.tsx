@@ -193,7 +193,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 // Atualização do tipo PageProps para Next.js 15
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Record<string, string | string[] | undefined>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 export default async function ExperienciaPage({ params, searchParams }: PageProps) {
