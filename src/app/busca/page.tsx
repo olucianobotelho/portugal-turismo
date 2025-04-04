@@ -6,86 +6,86 @@ import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Card from '../../components/ui/Card';
 
-// Dados simulados de destinos (mesmos da página de destinos)
+// Simulated destination data (same as the destinations page)
 const todosDestinos = [
   {
     id: 1,
-    titulo: 'Lisboa',
-    descricao: 'Capital de Portugal, conhecida por sua rica história, arquitetura e gastronomia.',
+    titulo: 'Lisbon',
+    descricao: 'Capital of Portugal, known for its rich history, architecture and gastronomy.',
     imagem: 'https://images.unsplash.com/photo-1585208798174-6cedd86e019a?auto=format&fit=crop&w=800&q=80',
     slug: 'lisboa',
-    regiao: 'centro',
-    categorias: ['cidade', 'cultura', 'gastronomia'],
-    preco: 2 // Nível de preço de 1 a 3
+    regiao: 'center',
+    categorias: ['city', 'culture', 'gastronomy'],
+    preco: 2 // Price level from 1 to 3
   },
   {
     id: 2,
     titulo: 'Porto',
-    descricao: 'Famosa pela produção de vinho do Porto e sua paisagem ribeirinha encantadora.',
+    descricao: 'Famous for Port wine production and its enchanting riverside landscape.',
     imagem: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=800&q=80',
     slug: 'porto',
-    regiao: 'norte',
-    categorias: ['cidade', 'vinho', 'cultura'],
+    regiao: 'north',
+    categorias: ['city', 'wine', 'culture'],
     preco: 2
   },
   {
     id: 3,
     titulo: 'Algarve',
-    descricao: 'Região costeira com praias deslumbrantes e falésias impressionantes.',
+    descricao: 'Coastal region with stunning beaches and impressive cliffs.',
     imagem: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80',
     slug: 'algarve',
-    regiao: 'sul',
-    categorias: ['praia', 'natureza', 'resort'],
+    regiao: 'south',
+    categorias: ['beach', 'nature', 'resort'],
     preco: 3
   },
   {
     id: 4,
     titulo: 'Madeira',
-    descricao: 'Ilha paradisíaca conhecida por suas florestas, montanhas e clima ameno durante todo o ano.',
+    descricao: 'Paradise island known for its forests, mountains and mild climate throughout the year.',
     imagem: 'https://images.unsplash.com/photo-1592985684811-5280406f3fe5?auto=format&fit=crop&w=800&q=80',
     slug: 'madeira',
-    regiao: 'ilhas',
-    categorias: ['natureza', 'aventura', 'montanha'],
+    regiao: 'islands',
+    categorias: ['nature', 'adventure', 'mountain'],
     preco: 2
   },
   {
     id: 5,
     titulo: 'Coimbra',
-    descricao: 'Cidade universitária histórica com uma das universidades mais antigas da Europa.',
+    descricao: 'Historic university city with one of the oldest universities in Europe.',
     imagem: 'https://images.unsplash.com/photo-1574700273208-e71f048e2be1?auto=format&fit=crop&w=800&q=80',
     slug: 'coimbra',
-    regiao: 'centro',
-    categorias: ['cidade', 'cultura', 'universidade'],
+    regiao: 'center',
+    categorias: ['city', 'culture', 'university'],
     preco: 1
   },
   {
     id: 6,
     titulo: 'Sintra',
-    descricao: 'Cidade encantadora conhecida por seus palácios românticos e paisagem montanhosa.',
+    descricao: 'Charming city known for its romantic palaces and mountainous landscape.',
     imagem: 'https://images.unsplash.com/photo-1559629427-08fd7de7e31c?auto=format&fit=crop&w=800&q=80',
     slug: 'sintra',
-    regiao: 'centro',
-    categorias: ['cultura', 'palácio', 'natureza'],
+    regiao: 'center',
+    categorias: ['culture', 'palace', 'nature'],
     preco: 2
   },
   {
     id: 7,
-    titulo: 'Açores',
-    descricao: 'Arquipélago de ilhas vulcânicas com paisagens de tirar o fôlego e vida marinha abundante.',
+    titulo: 'Azores',
+    descricao: 'Archipelago of volcanic islands with breathtaking landscapes and abundant marine life.',
     imagem: 'https://images.unsplash.com/photo-1627755244677-35b8d37b3c4e?auto=format&fit=crop&w=800&q=80',
     slug: 'acores',
-    regiao: 'ilhas',
-    categorias: ['natureza', 'aventura', 'vulcão'],
+    regiao: 'islands',
+    categorias: ['nature', 'adventure', 'volcano'],
     preco: 2
   },
   {
     id: 8,
     titulo: 'Évora',
-    descricao: 'Cidade histórica com um centro bem preservado e monumentos romanos antigos.',
+    descricao: 'Historic city with a well-preserved center and ancient Roman monuments.',
     imagem: 'https://images.unsplash.com/photo-1582289545741-dcd93619a0d4?auto=format&fit=crop&w=800&q=80',
     slug: 'evora',
     regiao: 'alentejo',
-    categorias: ['cidade', 'cultura', 'história'],
+    categorias: ['city', 'culture', 'history'],
     preco: 1
   }
 ];
@@ -94,29 +94,29 @@ export default function BuscaPage() {
   const searchParams = useSearchParams();
   const termoBusca = searchParams?.get('q') || '';
   
-  // Estado para os resultados filtrados
+  // State for filtered results
   const [resultados, setResultados] = useState<typeof todosDestinos>([]);
   
-  // Estado para os filtros
+  // State for filters
   const [filtros, setFiltros] = useState({
-    regiao: 'todas',
-    categoria: 'todas',
+    regiao: 'all',
+    categoria: 'all',
     preco: 0
   });
   
-  // Estado para controlar se os filtros estão visíveis em dispositivos móveis
+  // State to control if filters are visible on mobile devices
   const [filtrosVisiveis, setFiltrosVisiveis] = useState(false);
 
-  // Aplicar busca e filtros
+  // Apply search and filters
   useEffect(() => {
-    if (!termoBusca && filtros.regiao === 'todas' && filtros.categoria === 'todas' && filtros.preco === 0) {
+    if (!termoBusca && filtros.regiao === 'all' && filtros.categoria === 'all' && filtros.preco === 0) {
       setResultados(todosDestinos);
       return;
     }
     
     let resultadosFiltrados = [...todosDestinos];
     
-    // Filtrar por termo de busca
+    // Filter by search term
     if (termoBusca) {
       const termo = termoBusca.toLowerCase();
       resultadosFiltrados = resultadosFiltrados.filter(destino => 
@@ -127,12 +127,12 @@ export default function BuscaPage() {
       );
     }
     
-    // Aplicar filtros adicionais
-    if (filtros.regiao !== 'todas') {
+    // Apply additional filters
+    if (filtros.regiao !== 'all') {
       resultadosFiltrados = resultadosFiltrados.filter(destino => destino.regiao === filtros.regiao);
     }
     
-    if (filtros.categoria !== 'todas') {
+    if (filtros.categoria !== 'all') {
       resultadosFiltrados = resultadosFiltrados.filter(destino => 
         destino.categorias.includes(filtros.categoria)
       );
@@ -145,13 +145,13 @@ export default function BuscaPage() {
     setResultados(resultadosFiltrados);
   }, [termoBusca, filtros]);
 
-  // Listas de opções para os filtros (mesmas da página de destinos)
-  const regioes = ['todas', 'norte', 'centro', 'sul', 'alentejo', 'ilhas'];
-  const categorias = ['todas', 'cidade', 'praia', 'natureza', 'cultura', 'vinho', 'aventura', 'gastronomia', 'resort', 'montanha', 'história'];
+  // Lists of options for filters (same as the destinations page)
+  const regioes = ['all', 'north', 'center', 'south', 'alentejo', 'islands'];
+  const categorias = ['all', 'city', 'beach', 'nature', 'culture', 'wine', 'adventure', 'gastronomy', 'resort', 'mountain', 'history'];
   const precos = [
-    { valor: 0, label: 'Todos os preços' },
-    { valor: 1, label: '€ Econômico' },
-    { valor: 2, label: '€€ Médio' },
+    { valor: 0, label: 'All prices' },
+    { valor: 1, label: '€ Budget' },
+    { valor: 2, label: '€€ Medium' },
     { valor: 3, label: '€€€ Premium' }
   ];
 
@@ -159,24 +159,24 @@ export default function BuscaPage() {
     <div className="container mx-auto px-4 py-12">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4">
-          {termoBusca ? `Resultados para "${termoBusca}"` : 'Todos os destinos'}
+          {termoBusca ? `Results for "${termoBusca}"` : 'All destinations'}
         </h1>
         <p className="text-lg text-cinza-pedra">
           {resultados.length === 0 
-            ? 'Nenhum resultado encontrado. Tente outros termos ou remova os filtros.' 
-            : `Encontramos ${resultados.length} ${resultados.length === 1 ? 'destino' : 'destinos'} para você explorar.`}
+            ? 'No results found. Try other terms or remove filters.' 
+            : `We found ${resultados.length} ${resultados.length === 1 ? 'destination' : 'destinations'} for you to explore.`}
         </p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Filtros laterais (versão desktop) */}
+        {/* Side filters (desktop version) */}
         <aside className="hidden lg:block w-full lg:w-1/4 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 h-fit">
-          <h2 className="text-xl font-bold mb-6">Filtrar Resultados</h2>
+          <h2 className="text-xl font-bold mb-6">Filter Results</h2>
           
           <div className="space-y-6">
-            {/* Filtro de região */}
+            {/* Region filter */}
             <div>
-              <label htmlFor="regiao-desktop" className="block text-sm font-medium mb-2">Região</label>
+              <label htmlFor="regiao-desktop" className="block text-sm font-medium mb-2">Region</label>
               <select
                 id="regiao-desktop"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -191,9 +191,9 @@ export default function BuscaPage() {
               </select>
             </div>
             
-            {/* Filtro de categoria */}
+            {/* Category filter */}
             <div>
-              <label htmlFor="categoria-desktop" className="block text-sm font-medium mb-2">Categoria</label>
+              <label htmlFor="categoria-desktop" className="block text-sm font-medium mb-2">Category</label>
               <select
                 id="categoria-desktop"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -208,9 +208,9 @@ export default function BuscaPage() {
               </select>
             </div>
             
-            {/* Filtro de preço */}
+            {/* Price filter */}
             <div>
-              <label htmlFor="preco-desktop" className="block text-sm font-medium mb-2">Nível de Preço</label>
+              <label htmlFor="preco-desktop" className="block text-sm font-medium mb-2">Price Level</label>
               <select
                 id="preco-desktop"
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -225,23 +225,23 @@ export default function BuscaPage() {
               </select>
             </div>
 
-            {/* Botão para limpar filtros */}
+            {/* Button to clear filters */}
             <button
               className="w-full mt-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-cinza-pedra dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors"
-              onClick={() => setFiltros({regiao: 'todas', categoria: 'todas', preco: 0})}
+              onClick={() => setFiltros({regiao: 'all', categoria: 'all', preco: 0})}
             >
-              Limpar Filtros
+              Clear Filters
             </button>
           </div>
         </aside>
 
-        {/* Botão para mostrar/esconder filtros (versão mobile) */}
+        {/* Button to show/hide filters (mobile version) */}
         <div className="lg:hidden mb-4">
           <button
             className="w-full bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 flex justify-between items-center"
             onClick={() => setFiltrosVisiveis(!filtrosVisiveis)}
           >
-            <span className="font-medium">Filtrar Resultados</span>
+            <span className="font-medium">Filter Results</span>
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               className={`h-5 w-5 transform transition-transform ${filtrosVisiveis ? 'rotate-180' : ''}`}
@@ -253,13 +253,13 @@ export default function BuscaPage() {
             </svg>
           </button>
           
-          {/* Filtros em mobile */}
+          {/* Mobile filters */}
           {filtrosVisiveis && (
             <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-2">
               <div className="space-y-6">
-                {/* Filtros (mesmo conteúdo da versão desktop) */}
+                {/* Filters (same content as desktop version) */}
                 <div>
-                  <label htmlFor="regiao-mobile" className="block text-sm font-medium mb-2">Região</label>
+                  <label htmlFor="regiao-mobile" className="block text-sm font-medium mb-2">Region</label>
                   <select
                     id="regiao-mobile"
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -275,7 +275,7 @@ export default function BuscaPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="categoria-mobile" className="block text-sm font-medium mb-2">Categoria</label>
+                  <label htmlFor="categoria-mobile" className="block text-sm font-medium mb-2">Category</label>
                   <select
                     id="categoria-mobile"
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -291,7 +291,7 @@ export default function BuscaPage() {
                 </div>
                 
                 <div>
-                  <label htmlFor="preco-mobile" className="block text-sm font-medium mb-2">Nível de Preço</label>
+                  <label htmlFor="preco-mobile" className="block text-sm font-medium mb-2">Price Level</label>
                   <select
                     id="preco-mobile"
                     className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700"
@@ -308,16 +308,16 @@ export default function BuscaPage() {
 
                 <button
                   className="w-full mt-4 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-cinza-pedra dark:text-gray-200 font-medium py-2 px-4 rounded-lg transition-colors"
-                  onClick={() => setFiltros({regiao: 'todas', categoria: 'todas', preco: 0})}
+                  onClick={() => setFiltros({regiao: 'all', categoria: 'all', preco: 0})}
                 >
-                  Limpar Filtros
+                  Clear Filters
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Resultados da busca */}
+        {/* Search results */}
         <div className="w-full lg:w-3/4">
           {resultados.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -354,15 +354,15 @@ export default function BuscaPage() {
               <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <h3 className="text-2xl font-bold mb-4">Nenhum resultado encontrado</h3>
+              <h3 className="text-2xl font-bold mb-4">No results found</h3>
               <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-                Tente ajustar os filtros ou usar termos diferentes na sua busca.
+                Try adjusting your filters or using different terms in your search.
               </p>
               <button 
                 className="bg-azul-maritimo hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={() => setFiltros({regiao: 'todas', categoria: 'todas', preco: 0})}
+                onClick={() => setFiltros({regiao: 'all', categoria: 'all', preco: 0})}
               >
-                Limpar Filtros
+                Clear Filters
               </button>
             </div>
           )}

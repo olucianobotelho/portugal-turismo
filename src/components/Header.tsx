@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 const navLinks = [
-  { label: 'Início', href: '/' },
-  { label: 'Destinos', href: '/destinos' },
-  { label: 'Planejar Viagem', href: '/planejar' },
-  { label: 'Experiências', href: '/experiencias' },
-  { label: 'Gastronomia', href: '/gastronomia' }
+  { label: 'Home', href: '/' },
+  { label: 'Destinations', href: '/destinos' },
+  { label: 'Plan Your Trip', href: '/planejar' },
+  { label: 'Experiences', href: '/experiencias' },
+  { label: 'Gastronomy', href: '/gastronomia' }
 ];
 
 export default function Header() {
@@ -22,7 +22,7 @@ export default function Header() {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/">
               <div className="block h-10 w-auto">
-                <span className="text-2xl font-bold text-azul-maritimo">Turismo Portugal</span>
+                <span className="text-2xl font-bold text-azul-maritimo">Portugal Tourism</span>
               </div>
             </Link>
           </div>
@@ -48,7 +48,7 @@ export default function Header() {
               className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-preto-oliva hover:text-azul-maritimo focus:outline-none"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              <span className="sr-only">Abrir menu</span>
+              <span className="sr-only">Open menu</span>
               {isMobileMenuOpen ? (
                 <svg
                   className="block h-6 w-6"
